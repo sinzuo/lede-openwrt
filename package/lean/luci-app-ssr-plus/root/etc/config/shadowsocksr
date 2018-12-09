@@ -1,14 +1,15 @@
 
 config global
-	option tunnel_forward '8.8.4.4:53'
 	option tunnel_address '0.0.0.0'
-	option run_mode 'gfw'
-	option pdnsd_enable '1'
 	option monitor_enable '1'
-	option global_server 'nil'
 	option enable_switch '1'
 	option switch_timeout '5'
 	option switch_time '667'
+	option global_server 'cfg064a8f'
+	option udp_relay_server 'cfg064a8f'
+	option run_mode 'gfw'
+	option pdnsd_enable '1'
+	option tunnel_forward '8.8.4.4:53'
 
 config socks5_proxy
 	option server 'nil'
@@ -33,5 +34,15 @@ config server_subscribe
 	option auto_update_time '2'
 	option auto_update '1'
 
-
+config servers
+	option type 'ssr'
+	option alias 'aaa'
+	option server '174.137.53.129'
+	option server_port '8989'
+	option protocol 'origin'
+	option obfs 'plain'
+	option switch_enable '1'
+	option local_port '1234'
+	option encrypt_method 'aes-256-cfb'
+	option password 'jiang'
 
