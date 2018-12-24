@@ -1,0 +1,20 @@
+
+config IDCARD 'idcard'
+        option sync '0'
+        option serial_number '0100860000003851'
+        option original_token '0111e78798d04c13'
+        option token '11200a2oo0myu6od'
+
+config BASEINFO 'baseinfo'
+        option model 'wf2220s'
+        option sysname 'wf'
+        option brlan 'eth0.1'
+        option brwan 'eth2.2'
+        option internaldev '/mmc_host'
+        option wifidev2g 'mtradio0'
+        option wifidev5g 'mtradio1'
+        option wifi2glan 'ra0:1'
+        option wifi2guest 'ra1:0'
+        option wifi2grelay 'apcli0:0'
+
+

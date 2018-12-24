@@ -1,0 +1,25 @@
+
+config device 'device'
+	option factory 'pifii'
+	option model 'TZ'
+
+config SERVER 'server'
+	option url 'http://192.168.3.68:9091/wifi_home_gx'
+	option report_id '1'
+	option reportaddr '192.168.3.68'
+	option reportport '8880'
+	option postaddr '192.168.3.68'
+        option postport '9091'
+config ACTIVE 'active'
+	option url 'http://192.168.2.1/cgi-bin/luci/admin/activeH'
+
+config REGISTER 'register'
+
+config CONFINFO 'confinfo'
+	option jsonid '78785cb90'
+	option jsonrpc '2.0'
+
+config GLOBAL  'global'
+	option mode 'route'
+
+config POST 'post'

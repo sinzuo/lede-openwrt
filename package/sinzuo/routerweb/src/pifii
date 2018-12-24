@@ -1,0 +1,27 @@
+
+config device 'device'
+	option factory 'pifii'
+	option model 'TZ'
+
+config SERVER 'server'
+	option url 'http://www.cmttihome.com:9091/wifi_home_gx'
+	option report_id '1'
+	option devicetype 'IJLY_430'
+	option reportaddr 'www.cmttihome.com'
+	option reportport '8880'
+	option postaddr 'www.cmttihome.com'
+        option postport '9091'
+        option postpath '/wifi_home_gx/acsjson'
+config ACTIVE 'active'
+	option url 'http://192.168.2.1/cgi-bin/luci/admin/activeH'
+
+config REGISTER 'register'
+
+config CONFINFO 'confinfo'
+	option jsonid '78785cb90'
+	option jsonrpc '2.0'
+
+config GLOBAL  'global'
+	option mode 'route'
+
+config POST 'post'

@@ -121,7 +121,7 @@ define Package/openvpn-$(BUILD_VARIANT)/install
 
 	$(INSTALL_BIN) \
 		files/openvpn.init \
-		$(1)/etc/init.d/openvpn
+		$(1)/etc/init.d/openvpn.1
 	$(INSTALL_DATA) \
 		files/openvpn.options \
 		$(1)/usr/share/openvpn/openvpn.options

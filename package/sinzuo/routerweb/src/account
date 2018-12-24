@@ -1,0 +1,6 @@
+
+config ACCOUNT 'account'
+	option _lastatus_rb '0'
+	option pass '12345678'
+	option _lastatus_pw '1000'
+

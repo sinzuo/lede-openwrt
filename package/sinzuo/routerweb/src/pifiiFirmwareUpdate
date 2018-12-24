@@ -1,0 +1,197 @@
+#!/usr/bin/lua
+
+local util = require("luci.util")
+require "luci.model.uci"
+local uci = luci.model.uci.cursor()
+local pifii = require("upload")
+local json = require("luci.json")
+------debug function start-----
+local g_debug_flag = 1
+local g_fireware_log = "/tmp/firewareupdate.log"
+function DEBUG_INFO(info)
+    if g_debug_flag then
+        if not info then info = "nil" end
+        if "table" == type(info) then info = json.encode(info) end
+        if 0 == g_debug_flag + 0 then
+            local str_time = os.date("%Y-%m-%d %H:%M:%S",os.time())
+            os.execute("echo \'"..str_time.." -->> "..info.."\' >> "..g_fireware_log)
+        else
+            print(info)
+        end
+    end
+end
+------debug function end-----
+
+--全局变量---
+local g_file_lock = "/tmp/pifiifirewareupdate.lock"
+local g_delay_default = 60
+local g_http_headers = {
+    ["User-Agent"] = "cloudfi 1.0",
+    ["Content-Type"] = "application/json" 
+}
+-------------
+function get_req2_json(p_ismap,p_upgrdversion)
+    local result = {
+        id = pifii.get_jsonid(),
+        method = "getUpdateApproval",
+        jsonrpc = pifii.get_jsonrpc(),
+    }
+    local params_map = {
+        mac = pifii.get_apmac(),
+        hwid = pifii.get_hardware_id(),
+        currversion = pifii.get_software_version(),
+        upgrdversion = p_upgrdversion
+    }
+    result["params"] = params_map
+    if not p_ismap then
+        local params_array = {
+            params_map["mac"],
+            params_map["hwid"],
+            params_map["currversion"],
+            params_map["upgrdversion"]
+        }
+        result["params"] = params_array
+    end
+    return result
+end
+
+function firmware_request2(p_upgrdversion)
+    local result_str = nil
+    local resp_code = nil
+    local resp_json_str = nil
+
+    if p_upgrdversion then
+        local http_url = uci:get("pifii","server","url").."/Firmware_Interface"
+        DEBUG_INFO("request2 url:"..http_url)
+        local request_json_t = get_req2_json(false,p_upgrdversion)
+        DEBUG_INFO(request_json_t)
+        resp_code, resp_json_str = pifii.http_request_post(http_url,g_http_headers,request_json_t)
+        DEBUG_INFO(resp_json_str)
+        if resp_code and 200 == resp_code and resp_json_str then
+            local resp_json_t = json.decode(resp_json_str)
+            if resp_json_t and "string" == type(resp_json_t["result"]) then
+                result_str = resp_json_t["result"]
+            end
+        end
+    end
+    return resp_code,result_str  --return a response code and a string
+end
+
+function get_req_json(p_ismap)
+    local result = {
+        id = pifii.get_jsonid(),
+        method = "GetLatestVersion",
+        jsonrpc = pifii.get_jsonrpc(),
+    }
+    local params_map = {
+        mac = pifii.get_apmac(),
+        hwid = pifii.get_hardware_id(),
+        swver = pifii.get_software_version()
+    }
+    result["params"] = params_map
+    if not p_ismap then
+        local params_array = {
+            params_map["mac"],
+            params_map["hwid"],
+            params_map["swver"]
+        }
+        result["params"] = params_array
+    end
+
+    return result
+end
+
+function firmware_request()
+    local resp_result_t = nil
+    local http_url = uci:get("pifii","server","url").."/open/newFirmwareVersion?model=IJLY_410&factory=CMTT"
+    DEBUG_INFO("request url:"..http_url)
+    local request_json_t = get_req_json(false)
+    DEBUG_INFO(request_json_t)
+    local resp_code, resp_json_str = pifii.http_request_post(http_url,g_http_headers,request_json_t)
+    local resp_json_t=nil
+    if resp_code and 200 == resp_code and resp_json_str then
+        resp_json_t = json.decode(resp_json_str)
+	DEBUG_INFO(resp_json_t)
+--        if resp_json_t and "table" == type(resp_json_t["result"]) then
+--            resp_result_t = resp_json_t["result"]
+--        end
+    end
+   
+    DEBUG_INFO(resp_json_t)
+    return resp_code,resp_json_t --return a response code and a table
+end
+
+function do_firmware_update()
+    local device_id = uci:get("pifii","register","device_id")
+    if not device_id or "" == string.gsub(device_id," ","") then
+        DEBUG_INFO("no register")
+        return nil
+    end
+    
+    local resp_code = nil
+    local resp_result_t = nil
+    --local real_delay = g_delay_default
+    repeat
+        resp_code = nil
+        resp_result_t = nil
+        resp_code,resp_result_t = firmware_request()
+        --[[
+        --test data ---
+        resp_code = 200
+        resp_result_t = {
+            delay = 0,
+            swver = "v1.5.9",
+            image_url = "http://downloads.openwrt.org/barrier_breaker/14.07/ramips/mt7620a/packages/oldpackages/rp-pppoe-sniff_3.11-1_ramips_24kec.ipk",
+            md5 = "236fklk3048nvne93nfj23k294jldj8"
+        }
+        --test data end--
+        --]]
+        if not resp_code then
+            DEBUG_INFO("firmware_request() 1 response code : nil")
+            break
+        elseif 200 ~= resp_code then
+            DEBUG_INFO("firmware_request() response code : "..resp_code)
+            break
+        elseif not resp_result_t then
+            DEBUG_INFO("firmware_request() response result : nil")
+            break
+        end
+        local d_url = resp_result_t["image_url"]
+        local d_md5code = nil --resp_result_t["md5"] 
+        local d_delay = 0
+        local d_swver = resp_result_t["swver"]
+        
+        if not d_delay or 0 ~= d_delay + 0 then 
+            break  
+        end
+        
+        if not d_swver or pifii.get_software_version() == d_swver then
+            break   --no newest version
+        end
+        --if not d_url or not d_md5code or "" == string.gsub(d_md5code," ","") then
+        --    real_delay = g_delay_default
+        --    break
+        --end
+        
+        local downloaded,firmware_path = pifii.wget_download(d_url,"/tmp",d_md5code)--,resp_result_t["md5"])
+        if downloaded and 0 == downloaded and firmware_path and 0 == os.execute("test -f "..firmware_path) then
+            local file_size = util.exec("echo -n $(ls -l "..firmware_path.." | awk \'{print $5}\')")
+            if not file_size or 1048576 > file_size + 0 or 16777216 < file_size + 0 then
+                DEBUG_INFO(firmware_path.." size of file is wrong")
+                os.execute("rm -f "..firmware_path)
+                break
+            end
+            DEBUG_INFO("download ok")
+        else
+            DEBUG_INFO("download failed, return:"..downloaded)
+            break
+        end
+        
+        DEBUG_INFO("update success")
+        os.execute("/sbin/sysupgrade -c -v "..firmware_path.."  >/dev/null 2>&1 &")
+        os.execute("sleep 60")
+    until true
+end
+----main start-----
+do_firmware_update()
+----main end-------

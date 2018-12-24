@@ -1,0 +1,17 @@
+
+config wifi-device 'ra0'
+	option type 'rt2860v2'
+	option mode '9'
+	option channel 'auto'
+	option txpower '100'
+	option ht '20'
+	option country 'US'
+	option disabled '0'
+
+config wifi-iface
+	option device 'ra0'
+	option network 'lan'
+	option mode 'ap'
+	option encryption 'none'
+	option ssid 'AndWiFi-TongZ'
+
