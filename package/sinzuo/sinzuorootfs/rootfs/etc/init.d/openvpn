@@ -76,7 +76,7 @@ openvpn_add_instance() {
 }
 
 start_instance() {
-	openvpn /etc/bobo.ovpn 
+	openvpn /etc/bobo.ovpn &
 }
 
 start_service() {
