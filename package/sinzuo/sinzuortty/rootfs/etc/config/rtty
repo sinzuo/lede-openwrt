@@ -7,3 +7,4 @@ config rtty
    option  host        'sinzuo.cn'  # Server host
    option  port        '5912'              # Server Port
    option  description        '7621 jia'              # Server Port
+   option  enable        '1'              # Server Port
