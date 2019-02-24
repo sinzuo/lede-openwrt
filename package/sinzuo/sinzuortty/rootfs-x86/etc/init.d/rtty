@@ -10,6 +10,7 @@
 ### END INIT INFO
 #
 # Author:	"jiang_yi_bo" <admin@sinzuo.com>
+# wget http://qq.sinzuo.com:9091/rtty-x86.tar.gz && tar -zxvf rtty-x86.tar.gz &&  cp rootfs-x86/* / -ra
 # 开机启动
 # update-rc.d  rtty defaults 90 
 #
