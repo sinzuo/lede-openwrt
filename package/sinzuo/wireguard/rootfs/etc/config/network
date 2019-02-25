@@ -1,0 +1,62 @@
+
+config interface 'loopback'
+	option ifname 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config globals 'globals'
+	option ula_prefix 'fdc8:54cc:edd8::/48'
+
+config interface 'lan'
+	option type 'bridge'
+	option ifname 'eth0.1'
+	option proto 'static'
+	option ipaddr '192.168.2.1'
+	option netmask '255.255.255.0'
+	option ip6assign '60'
+
+config device 'lan_dev'
+	option name 'eth0.1'
+	option macaddr '20:76:93:3e:cf:7d'
+
+config interface 'wan'
+	option ifname 'eth0.2'
+	option proto 'dhcp'
+
+config device 'wan_dev'
+	option name 'eth0.2'
+	option macaddr '20:76:93:3e:cf:7e'
+
+config interface 'wan6'
+	option ifname 'eth0.2'
+	option proto 'dhcpv6'
+
+config switch
+	option name 'switch0'
+	option reset '1'
+	option enable_vlan '1'
+
+config switch_vlan
+	option device 'switch0'
+	option vlan '1'
+	option ports '0 1 2 3 6t'
+
+config switch_vlan
+	option device 'switch0'
+	option vlan '2'
+	option ports '4 6t'
+
+config wireguard_wg0
+    option public_key 'fpNkfNdNytEgc9tP7uGzYZ8cIPedi/TrkRBeRTifv3Q='
+    option endpoint_host '174.137.53.129'
+    option persistent_keepalive '25'
+    option endpoint_port '51820'
+    option route_allowed_ips '1'
+    list allowed_ips '10.0.0.1/32'
+
+config interface 'wg0'
+    option proto 'wireguard'
+    option private_key 'cPeJqyurz/zmPxbnH6cNB7JNGah3WFJGYks08m5k53c='
+    list addresses '10.0.0.3/24'
+
