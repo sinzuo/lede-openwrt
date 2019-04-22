@@ -1,0 +1,23 @@
+{
+    "name": "getResponse",
+    "version": "1.0.0",
+    "serialnumber": "%s",
+    "keyname": "inform",
+    "packet": {
+        "dev_type": "1",
+        "SerialNumber": "%s",
+        "InternetGatewayDevice.DeviceInfo.Manufacturer": "CMTT",
+        "ManufaInternetGatewayDevice.DeviceInfo.cturerOUI": "PIFII",
+        "InternetGatewayDevice.DeviceInfo.ProductClass": "%s",
+        "InternetGatewayDevice.DeviceInfo.HardwareVersion": "%s",
+        "InternetGatewayDevice.DeviceInfo.SoftwareVersion": "%s",
+        "InternetGatewayDevice.DeviceInfo.cpu_utilization": "%d%%",
+        "InternetGatewayDevice.DeviceInfo.memory_utilization": "%d / %d",
+        "InternetGatewayDevice.DeviceInfo.flash_utilization": "%d / %d",
+        "InternetGatewayDevice.DeviceInfo.UpTime": "%d",
+        "InternetGatewayDevice.DeviceInfo.client_speed": "%d %d",
+        "InternetGatewayDevice.DeviceInfo.wan_current_ip_addr": "10.0.68.30",
+        "InternetGatewayDevice.DeviceInfo.work_mode": "AP",
+        "InternetGatewayDevice.LANDevice.1.Wireless.WiFiClient": %s
+    }
+}

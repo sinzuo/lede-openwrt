@@ -1,0 +1,15 @@
+{
+    "name": "homesmart",
+    "version": "1.0.0",
+    "serialnumber": "%s",
+    "keyname": "set",
+    "smartid": "00:0c:29:a0:dd:c2",
+    "packet": {
+        "sid": "1",
+        "id": "00:0c:29:a0:dd:c2",
+        "ver": "v1.2.3",
+        "cmdtype": "4099",
+        "subcmd": 1,
+        "value": 0
+    }
+}

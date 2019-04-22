@@ -1,0 +1,11 @@
+{
+    "name": "set",
+    "version": "1.0.0",
+    "serialnumber": "%s",
+    "keyname": "download",
+    "packet": {
+        "url": "1",
+        "FileSize": "1",
+        "md5": ""
+    }
+}

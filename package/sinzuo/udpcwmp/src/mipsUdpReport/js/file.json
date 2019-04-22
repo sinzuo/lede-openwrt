@@ -1,0 +1,11 @@
+{
+    "name": "get",
+    "version": "1.0.0",
+    "serialnumber": "%s",
+    "keyname": "file",
+    "packet": {
+        "path": "%s",
+        "name": "%s",
+        "data": "%s"
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "name": "inform",
+    "version": "1.0.0",
+    "serialnumber": "%s",
+    "commandkey": "%s",
+    "packet": {
+        "dev_type": "1",
+        "SerialNumber": "%s",
+        "Manufacturer": "CMTT",
+        "ManufacturerOUI": "PIFII",
+        "ProductClass": "%s",
+        "HardwareVersion": "%s",
+        "SoftwareVersion": "%s",
+        "cpu_utilization": "%d%%",
+        "memory_utilization": "39772 / 61184",
+        "flash_utilization": "7300 / 16384",
+        "UpTime": "%d",
+        "client_speed": "1561071965 1175873324",
+        "wan_current_ip_addr": "%s",
+        "work_mode": "AP",
+        "register": "%d",
+        "WiFiClient": [],
+        "portstate": {
+            "port5": 1,
+            "port4": 0,
+            "port2": 0,
+            "port3": 0,
+            "port7": 1,
+            "port1": 0
+        }
+
+    }
+}

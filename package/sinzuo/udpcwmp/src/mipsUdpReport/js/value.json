@@ -1,0 +1,9 @@
+{
+    "name": "getResponse",
+    "version": "1.0.0",
+    "serialnumber": "%s",
+    "keyname": "%s",
+    "packet": {
+        "type": "1"
+    }
+}

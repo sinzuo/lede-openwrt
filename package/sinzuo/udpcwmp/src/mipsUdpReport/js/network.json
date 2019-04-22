@@ -1,0 +1,37 @@
+{
+    "name": "get",
+    "version": "1.0.0",
+    "serialnumber": "%s",
+    "commandkey": "network",
+    "Realdata": {
+        "Wantype": "pppoe",
+        "Realvalue": {
+            "Ipaddr": "192.168.1.8",
+            "Mask": "255.255.255.0",
+            "Gateway": "",
+            "Dns": "",
+            "Mac": ""
+        },
+        "Staticconfig": {
+            "Ipaddr": "",
+            "Mask": "",
+            "Gateway": "",
+            "Dns": ""
+        },
+        "Pppoeconfig": {
+            "Auto": "",
+            "Dns": "",
+            "Username": "jiang",
+            "Password": "boob"
+        },
+        "Dhcpconfig": {
+            "Dns": ""
+        }
+    },
+    "Clientmach": [{
+        "Mac": "01:02:03:04:05:06",
+        "Ipaddr": "192.168.1.2",
+        "Wan_incoming": 0,
+        "Wan_outgoing": 0
+    }]
+}

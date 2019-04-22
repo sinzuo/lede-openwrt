@@ -1,0 +1,12 @@
+{
+    "name": "get",
+    "version": "1.0.0",
+    "serialnumber": "%s",
+    "keyname": "config",
+    "packet": {
+        "black_mac": "1",
+        "white_mac": "1",
+        "black_url": "1",
+        "white_url": "1"
+    }
+}

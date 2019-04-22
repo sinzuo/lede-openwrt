@@ -1,0 +1,45 @@
+#!/usr/bin/lua
+function split(str,reps )
+    local resultStrList = {}
+    string.gsub(str,'[^'..reps..']+',function ( w )
+        table.insert(resultStrList,w)
+    end)
+    return resultStrList
+end
+    require "luci.model.uci"
+    local uci = luci.model.uci.cursor()
+    local api = require "luci.api"
+    local json = require ("luci.json")
+    local firew = require "luci.model.firewall".init()
+   local util = require("luci.util")
+    local status = 0
+    jss =    firew:get_zone("lan")
+    local black_mac= uci:get("pifii", "server", "blacklist")
+    print(black_mac)
+    
+    uci:foreach("firewall", "rule",
+                        function(s)
+                                        if s.src_mac  then
+                                                        uci:delete("firewall", s['.name'])
+                                        end
+                        end)
+    uci:commit("firewall")
+    local name
+    if black_mac ~=nil and arg[1] ~=nil then
+
+            local obj = split(black_mac, ',')
+            print(#obj)
+            for i = 1, #obj do
+               print(obj[i])
+            end
+            local name
+
+        for i = 1,#obj do
+          mac = obj[i]
+                  if mac then
+                        jss:add_rule({enable=1,dest='wan',src_mac=mac,target='REJECT'})
+                        firew:commit("firewall")
+           end
+        end
+    end
+     local ver = util.exec("/etc/init.d/firewall restart&")

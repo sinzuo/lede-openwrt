@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "httppost.h": "c",
+        "arraylist.h": "c",
+        "linkhash.h": "c",
+        "printbuf.h": "c",
+        "ucimap.h": "c",
+        "uci.h": "c",
+        "uci_internal.h": "c",
+        "json_object.h": "c",
+        "bits.h": "c",
+        "json_tokener.h": "c"
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "name": "set",
+    "version": "1.0.0",
+    "serialnumber": "%s",
+    "keyname": "reportconfig",
+    "packet": {
+        "reportaddr": "192.168.1.33",
+        "reportport": "8880",
+        "postaddr": "192.168.1.33",
+        "postport": "8082",
+        "postpath": "/wifi_home"
+    }
+}
+/*
+pifii.server.enable
+pifii.server.weekdays
+pifii.server.blacklist
+pifii.server.timespan1
+pifii.server.timespan2
+pifii.server.timespan3
+*/
+
+/*
+{
+    "name": "set",
+    "version": "1.0.0",
+    "serialnumber": "%s",
+    "keyname": "blackmac",
+    "packet": {
+        "blacklist": "xx:xx:xx:xx:xx:xx,xx:xx:xx:xx:xx:xx",
+        "enable": "1",
+        "timespan1": "00000600",
+        "timespan2": "08301130",
+        "timespan3": "14001730",
+        "weekdays": "1111110"
+    }
+}
+*/

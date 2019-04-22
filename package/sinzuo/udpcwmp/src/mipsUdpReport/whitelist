@@ -1,0 +1,40 @@
+#!/usr/bin/lua
+function split(str,reps )
+    local resultStrList = {}
+    string.gsub(str,'[^'..reps..']+',function ( w )
+        table.insert(resultStrList,w)
+    end)
+    return resultStrList
+end
+    require "luci.model.uci"
+    local uci = luci.model.uci.cursor()
+    local api = require "luci.api"
+    local json = require ("luci.json")
+
+   local util = require("luci.util")
+    local status = 0
+
+    local whitelistok= arg[1]
+    print(whitelistok)
+
+    uci:delete("wifidog", "wifidog","whitelist")
+    uci:commit("wifidog")
+    local name
+    if whitelistok ~=nil  then
+
+            local obj = split(whitelistok, ',')
+            print(#obj)
+            for i = 1, #obj do
+               print(obj[i])
+            end
+            local name
+
+        for i = 1,#obj do
+          mac = obj[i]
+                if mac then
+
+                   util.exec("uci add_list wifidog.wifidog.whitelist='".. mac .."'")
+                end
+        end
+        uci:commit("wifidog")
+    end

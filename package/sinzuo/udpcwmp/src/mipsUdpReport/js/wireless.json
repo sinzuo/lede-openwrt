@@ -1,0 +1,30 @@
+{
+    "name": "get",
+    "version": "1.0.0",
+    "serialnumber": "%s",
+    "commandkey": "wireless",
+    "config": {
+        "type": "1",
+        "inthreshold": "1",
+        "outthreshold": "1",
+        "channel": 1,
+        "mode": 1
+    },
+    "wifi": [{
+        "type": "2g",
+        "ssid": "pifii2",
+        "key": "123456",
+        "channel": 5,
+        "enable": 1
+    }, {
+        "type": "5g",
+        "ssid": "pifii3",
+        "key": "123456",
+        "channel": 5,
+        "enable": 1
+    }],
+    "stations": [{ "mac": "94:fe:22:c7:c7:b9", "ssid": "" },
+        { "mac": "00:fe:22:c7:c7:33", "ssid": "" },
+        { "mac": "78:fe:22:c7:c7:3f", "ssid": "" }
+    ]
+}
