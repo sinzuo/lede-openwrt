@@ -1,0 +1,21 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+
+start(){
+        [ -d "/tmp/PPGo_Job-linux-mipsle" ] || {
+                tar -zxvf /root/PPGo_Job-v2.0.0-linux-mipsle.tar.gz -C /tmp/
+        }
+
+        cd /tmp/PPGo_Job-linux-mipsle
+        ./PPGo_Job >/dev/null 2>&1 &
+}
+
+stop(){
+	service_stop ./PPGo_Job
+}
+
+restart(){
+        stop
+        start
+}
